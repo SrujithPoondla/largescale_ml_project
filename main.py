@@ -52,12 +52,14 @@ if __name__ == '__main__':
     args = parser.parse_args()
     torch.manual_seed(args.seed)
     model = Net()
-    # db = redis(db=0)
-    db = Client(('localhost', 11211))
+    db = redis(db=0)
+
+    # db = Client(('localhost', 11211))
+
     # push params to redis cache
-    # push_params_redis(model, db)
-    # shapes = get_shape(model)
-    # train(args, model,shapes, db)
+    push_params_redis(model, db)
+    shapes = get_shape(model)
+    train(args, model,shapes, db)
 
     #push params to memcache
     push_params_memcache(model, db)
