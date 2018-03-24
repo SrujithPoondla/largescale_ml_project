@@ -6,7 +6,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from redis import StrictRedis as redis
-from pymemcache.client.base import Client
+from pymemcache import client
 from common_functions import push_params_redis, push_params_cass, get_shape, push_params_memcache
 from train import train
 
@@ -54,7 +54,7 @@ if __name__ == '__main__':
     model = Net()
     db = redis(db=0)
 
-    # db = Client(('localhost', 11211))
+    db = client.Client(('localhost', 11211))
 
     # push params to redis cache
     push_params_redis(model, db)
