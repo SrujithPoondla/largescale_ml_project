@@ -1,0 +1,84 @@
+from __future__ import print_function
+import argparse
+import timeit
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from redis import StrictRedis as redis
+from pymemcache.client.base import Client
+from common_functions import push_params_redis, push_params_cass, get_shape, push_params_memcache
+from train import train
+
+# Training settings
+parser = argparse.ArgumentParser(description='PyTorch MNIST Example')
+parser.add_argument('--batch-size', type=int, default=30, metavar='N',
+                    help='input batch size for training (default: 64)')
+parser.add_argument('--test-batch-size', type=int, default=1000, metavar='N',
+                    help='input batch size for testing (default: 1000)')
+parser.add_argument('--epochs', type=int, default=10, metavar='N',
+                    help='number of epochs to train (default: 10)')
+parser.add_argument('--lr', type=float, default=0.01, metavar='LR',
+                    help='learning rate (default: 0.01)')
+parser.add_argument('--momentum', type=float, default=0.5, metavar='M',
+                    help='SGD momentum (default: 0.5)')
+parser.add_argument('--seed', type=int, default=1, metavar='S',
+                    help='random seed (default: 1)')
+parser.add_argument('--log-interval', type=int, default=10, metavar='N',
+                    help='how many batches to wait before logging training status')
+parser.add_argument('--num-processes', type=int, default=2, metavar='N',
+                    help='how many training processes to use (default: 2)')
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
+        self.conv2 = nn.Conv2d(10, 20, kernel_size=5)
+        self.conv2_drop = nn.Dropout2d()
+        self.fc1 = nn.Linear(320, 50)
+        self.fc2 = nn.Linear(50, 10)
+
+    def forward(self, x):
+        x = F.relu(F.max_pool2d(self.conv1(x), 2))
+        x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
+        x = x.view(-1, 320)
+        x = F.relu(self.fc1(x))
+        x = F.dropout(x, training=self.training)
+        x = self.fc2(x)
+        return F.log_softmax(x, dim=1)
+
+if __name__ == '__main__':
+    start_time = timeit.default_timer()
+    args = parser.parse_args()
+    torch.manual_seed(args.seed)
+    model = Net()
+    # db = redis(db=0)
+    db = Client(('localhost', 11211))
+    # push params to redis cache
+    # push_params_redis(model, db)
+    # shapes = get_shape(model)
+    # train(args, model,shapes, db)
+
+    #push params to memcache
+    push_params_memcache(model, db)
+    shapes = get_shape(model)
+    train(args, model, shapes, db)
+
+    # push params to cassandra
+    # push_params_cass(model)
+    # train(args, model)
+
+    # model.share_memory() # gradients are allocated lazily, so they are not shared here
+
+    # processes = []
+    # p = mp.Process(target=train, args=(rank, args, model))
+
+    # for rank in range(args.num_processes):
+    #     p = mp.Process(target=train, args=(rank, args, model))
+    #     p.start()
+        # processes.append(p)
+    # for p in processes:
+    #     p.join()
+
+    # your code
+    print("Total execution time: {}".format(timeit.default_timer() - start_time))
