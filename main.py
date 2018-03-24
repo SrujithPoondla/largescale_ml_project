@@ -62,9 +62,9 @@ if __name__ == '__main__':
     train(args, model,shapes, db)
 
     #push params to memcache
-    push_params_memcache(model, db)
-    shapes = get_shape(model)
-    train(args, model, shapes, db)
+    # push_params_memcache(model, db)
+    # shapes = get_shape(model)
+    # train(args, model, shapes, db)
 
     # push params to cassandra
     # push_params_cass(model)
