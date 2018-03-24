@@ -1,0 +1,12 @@
+name: largescale
+dependencies:
+  - numpy
+  - pandas
+  - argparse
+  - timeit
+  - pytorch
+  - torchvision
+  - redis
+  - pymemcache
+  - cassandra
+  - pickle
