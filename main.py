@@ -7,7 +7,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from redis import StrictRedis as redis
 from pymemcache import client
-from common_functions import push_params_redis, push_params_cass, get_shape, push_params_memcache
+from common_functions import push_params_redis, get_shape, push_params_memcache
 from train import train
 
 # Training settings
