@@ -1,12 +1,13 @@
 name: largescale
+channels:
+  - conda-forge
 dependencies:
   - numpy
   - pandas
-  - argparse
-  - timeit
   - pytorch
   - torchvision
   - redis
-  - pymemcache
-  - cassandra
-  - pickle
+  - cloudpickle
+  - cassandra-driver
+  - pip:
+    - pymemcache
