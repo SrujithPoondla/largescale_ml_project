@@ -5,7 +5,6 @@ import torch.optim as optim
 import torch.nn.functional as F
 from torch.autograd import Variable
 from torchvision import datasets, transforms
-from redis import StrictRedis as redis
 from common_functions import  set_params, get_params_redis, push_params_redis, get_params_memcache, push_params_memcache
 
 
