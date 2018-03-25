@@ -8,7 +8,9 @@ fi
 export envName="main-env"
 export name="spot-instance"
 #export ami="ami-6f587e1c"
-export ami="ami-785db401"
+#export ami="ami-97785bed"
+#export ami="ami-7772a10a"
+export ami="ami-9400dde9"
 
 . $envName-vars.sh
 . utils/create-ssh-key-pair.sh

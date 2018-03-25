@@ -15,12 +15,12 @@ if [ "$ami" = "" ]; then
   exit 0
 fi
 
-export instanceId=$(aws ec2 describe-instances --query 'Reservations[*].Instances[?ImageId==`'$ami'`].InstanceId' --filters Name=instance-state-name,Values=running --output text)
-
-if [ "$instanceId" != "" ]; then
-  echo Main compute instance already exists with id $instanceId.
-  exit 0
-fi
+#export instanceId=$(aws ec2 describe-instances --query 'Reservations[*].Instances[?ImageId==`'$ami'`].InstanceId' --filters Name=instance-state-name,Values=running --output text)
+#
+#if [ "$instanceId" != "" ]; then
+#  echo Main compute instance already exists with id $instanceId.
+#  exit 0
+#fi
 
 . $envName-vars.sh
 . utils/create-ssh-key-pair.sh
