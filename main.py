@@ -54,7 +54,7 @@ if __name__ == '__main__':
     model = Net()
     db = redis(db=0)
 
-    db = client.Client(('localhost', 11211))
+    # db = client.Client(('localhost', 11211))
 
     # push params to redis cache
     push_params_redis(model, db)
@@ -65,10 +65,6 @@ if __name__ == '__main__':
     # push_params_memcache(model, db)
     # shapes = get_shape(model)
     # train(args, model, shapes, db)
-
-    # push params to cassandra
-    # push_params_cass(model)
-    # train(args, model)
 
     # model.share_memory() # gradients are allocated lazily, so they are not shared here
 
