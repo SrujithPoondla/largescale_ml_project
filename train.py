@@ -49,10 +49,10 @@ def train_epoch(epoch, args, model, data_loader, optimizer):
         optimizer.step()
         # push_params_memcache(model,db)
         # push_params_redis(model,db)
-        if batch_idx % args.log_interval == 0:
-            print('{}\tTrain Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                pid, epoch, batch_idx * len(data), len(data_loader.dataset),
-                100. * batch_idx / len(data_loader), loss.data[0]))
+        # if batch_idx % args.log_interval == 0:
+            # print('{}\tTrain Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+            #     pid, epoch, batch_idx * len(data), len(data_loader.dataset),
+            #     100. * batch_idx / len(data_loader), loss.data[0]))
 
 
 def test_epoch(model, data_loader):
