@@ -8,11 +8,10 @@ from torchvision import datasets, transforms
 from common_functions import  set_params, get_params_redis, push_params_redis, get_params_memcache, push_params_memcache
 
 
-# def train(rank, args, model):
-# def train(args, model):
-def train(args, model,shapes,db):
+def train(rank, args, model):
+# def train(args, model,shapes,db):
 
-    torch.manual_seed(args.seed)
+    torch.manual_seed(args.seed+rank)
     train_loader = torch.utils.data.DataLoader(
         datasets.MNIST('../data', train=True, download=True,
                     transform=transforms.Compose([
@@ -29,13 +28,13 @@ def train(args, model,shapes,db):
     optimizer = optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
     # for epoch in range(1, args.epochs + 1):
     for epoch in range(1):
-        # train_epoch(epoch, args, model, train_loader, optimizer)
-        train_epoch(epoch, args, model, train_loader, optimizer,shapes,db)
+        train_epoch(epoch, args, model, train_loader, optimizer)
+        # train_epoch(epoch, args, model, train_loader, optimizer,shapes,db)
         test_epoch(model, test_loader)
 
 
-# def train_epoch(epoch, args, model, data_loader, optimizer):
-def train_epoch(epoch, args, model, data_loader, optimizer, shapes, db):
+def train_epoch(epoch, args, model, data_loader, optimizer):
+# def train_epoch(epoch, args, model, data_loader, optimizer, shapes, db):
     model.train()
     pid = os.getpid()
     for batch_idx, (data, target) in enumerate(data_loader):

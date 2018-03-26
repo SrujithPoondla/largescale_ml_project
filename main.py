@@ -7,6 +7,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 from redis import StrictRedis as redis
 from pymemcache import client
+import torch.multiprocessing as mp
+
+
 from common_functions import push_params_redis, get_shape, push_params_memcache
 from train import train
 
@@ -66,17 +69,16 @@ if __name__ == '__main__':
     # shapes = get_shape(model)
     # train(args, model, shapes, db)
 
-    # model.share_memory() # gradients are allocated lazily, so they are not shared here
+    model.share_memory() # gradients are allocated lazily, so they are not shared here
 
-    # processes = []
-    # p = mp.Process(target=train, args=(rank, args, model))
+    processes = []
 
-    # for rank in range(args.num_processes):
-    #     p = mp.Process(target=train, args=(rank, args, model))
-    #     p.start()
-        # processes.append(p)
-    # for p in processes:
-    #     p.join()
+    for rank in range(args.num_processes):
+        p = mp.Process(target=train, args=(rank, args, model))
+        p.start()
+        processes.append(p)
+    for p in processes:
+        p.join()
 
     # your code
     print("Total execution time: {}".format(timeit.default_timer() - start_time))
