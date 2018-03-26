@@ -52,7 +52,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     torch.manual_seed(args.seed)
     model = Net()
-    # db = redis(db=0)
+    db = redis(db=0)
 
     # db = client.Client(('localhost', 11211))
 
