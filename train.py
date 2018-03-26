@@ -41,15 +41,15 @@ def train_epoch(epoch, args, model, data_loader, optimizer, shapes, db):
     for batch_idx, (data, target) in enumerate(data_loader):
         data, target = Variable(data), Variable(target)
         optimizer.zero_grad()
-        params = get_params_redis(db,shapes)
+        # params = get_params_redis(db,shapes)
         # params = get_params_memcache(db, shapes)
-        set_params(model,params)
+        # set_params(model,params)
         output = model(data)
         loss = F.nll_loss(output, target)
         loss.backward()
         optimizer.step()
         # push_params_memcache(model,db)
-        push_params_redis(model,db)
+        # push_params_redis(model,db)
         if batch_idx % args.log_interval == 0:
             print('{}\tTrain Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 pid, epoch, batch_idx * len(data), len(data_loader.dataset),
