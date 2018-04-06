@@ -1,0 +1,12 @@
+Starting Training...47236 rows=781265 nExamples=59938577
+Locking is Atomic
+# [freeforall_generic]  Parameters:
+# [freeforall_generic]  nepochs=7 nSplits=48 nShufflers=1
+# [freeforall_generic]  initial_stepsize=0.1 step_diminish=0.95
+[Epoch Stats] epoch: 1 epoch_time: 0.635067 total_time: 0.670519s perm_time 8.126e-06 train_rmse: 0.335476 test_rmse: 0.333021
+[Epoch Stats] epoch: 2 epoch_time: 0.424095 total_time: 1.1201s perm_time 8.979e-06 train_rmse: 0.32667 test_rmse: 0.329847
+[Epoch Stats] epoch: 3 epoch_time: 0.986553 total_time: 2.1321s perm_time 5.474e-06 train_rmse: 0.322248 test_rmse: 0.328137
+[Epoch Stats] epoch: 4 epoch_time: 0.916496 total_time: 3.07528s perm_time 1.9661e-05 train_rmse: 0.31939 test_rmse: 0.327725
+[Epoch Stats] epoch: 5 epoch_time: 0.950719 total_time: 4.05184s perm_time 9.868e-06 train_rmse: 0.317332 test_rmse: 0.328477
+[Epoch Stats] epoch: 6 epoch_time: 1.08959 total_time: 5.19757s perm_time 1.1118e-05 train_rmse: 0.315702 test_rmse: 0.328216
+[Epoch Stats] epoch: 7 epoch_time: 0.404845 total_time: 5.6282s perm_time 1.5229e-05 train_rmse: 0.314333 test_rmse: 0.327773
