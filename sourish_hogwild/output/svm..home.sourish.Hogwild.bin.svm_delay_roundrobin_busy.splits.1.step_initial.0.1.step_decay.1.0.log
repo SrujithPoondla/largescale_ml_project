@@ -1,0 +1,24 @@
+Starting Training...47236 rows=781265 nExamples=59938577
+# [freeforall_generic]  Parameters:
+# [freeforall_generic]  nepochs=20 nSplits=1 nShufflers=1
+# [freeforall_generic]  initial_stepsize=0.1 step_diminish=1
+[Epoch Stats] epoch: 1 epoch_time: 2.02717 total_time: 2.49127s perm_time 6.78e-07 train_rmse: 0.332589 test_rmse: 0.331939
+[Epoch Stats] epoch: 2 epoch_time: 1.42379 total_time: 4.38109s perm_time 5.98e-07 train_rmse: 0.324983 test_rmse: 0.328119
+[Epoch Stats] epoch: 3 epoch_time: 1.74735 total_time: 6.53657s perm_time 3.69e-07 train_rmse: 0.320727 test_rmse: 0.327398
+[Epoch Stats] epoch: 4 epoch_time: 1.29766 total_time: 8.23121s perm_time 2.87e-07 train_rmse: 0.317963 test_rmse: 0.326857
+[Epoch Stats] epoch: 5 epoch_time: 1.49504 total_time: 10.1466s perm_time 5.67e-07 train_rmse: 0.31563 test_rmse: 0.32639
+[Epoch Stats] epoch: 6 epoch_time: 2.01772 total_time: 12.5797s perm_time 6.75e-07 train_rmse: 0.3144 test_rmse: 0.32823
+[Epoch Stats] epoch: 7 epoch_time: 1.6493 total_time: 14.7735s perm_time 5.1e-07 train_rmse: 0.313677 test_rmse: 0.32946
+[Epoch Stats] epoch: 8 epoch_time: 1.53617 total_time: 16.7305s perm_time 7.18e-07 train_rmse: 0.311861 test_rmse: 0.327872
+[Epoch Stats] epoch: 9 epoch_time: 1.32272 total_time: 18.5087s perm_time 7.98e-07 train_rmse: 0.311151 test_rmse: 0.32875
+[Epoch Stats] epoch: 10 epoch_time: 1.30404 total_time: 20.2128s perm_time 5.43e-07 train_rmse: 0.309674 test_rmse: 0.328596
+[Epoch Stats] epoch: 11 epoch_time: 1.90603 total_time: 22.5071s perm_time 5.58e-07 train_rmse: 0.308626 test_rmse: 0.329211
+[Epoch Stats] epoch: 12 epoch_time: 1.707 total_time: 24.8681s perm_time 6.36e-07 train_rmse: 0.307685 test_rmse: 0.329676
+[Epoch Stats] epoch: 13 epoch_time: 1.37692 total_time: 26.5965s perm_time 7.51e-07 train_rmse: 0.307353 test_rmse: 0.330039
+[Epoch Stats] epoch: 14 epoch_time: 1.4957 total_time: 28.5554s perm_time 8.02e-07 train_rmse: 0.306533 test_rmse: 0.330498
+[Epoch Stats] epoch: 15 epoch_time: 1.65763 total_time: 30.6469s perm_time 6.92e-07 train_rmse: 0.306009 test_rmse: 0.331386
+[Epoch Stats] epoch: 16 epoch_time: 1.53958 total_time: 32.5775s perm_time 7.72e-07 train_rmse: 0.30556 test_rmse: 0.330897
+[Epoch Stats] epoch: 17 epoch_time: 1.55447 total_time: 34.5406s perm_time 7.38e-07 train_rmse: 0.304898 test_rmse: 0.330832
+[Epoch Stats] epoch: 18 epoch_time: 1.52974 total_time: 36.514s perm_time 7.45e-07 train_rmse: 0.304427 test_rmse: 0.33099
+[Epoch Stats] epoch: 19 epoch_time: 1.61227 total_time: 38.5456s perm_time 7.42e-07 train_rmse: 0.303997 test_rmse: 0.331829
+[Epoch Stats] epoch: 20 epoch_time: 1.40729 total_time: 40.3525s perm_time 7.45e-07 train_rmse: 0.303708 test_rmse: 0.331924
