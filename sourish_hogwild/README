@@ -1,0 +1,103 @@
+November, 2011 version 10e-9 (or, "so alpha it hurts")
+
+This is a quick README file that is designed to help you beat our
+approach fairly and squarely. Please send me (chrisre@cs.wisc.edu) a
+note if you actually find a use for this code. We want you to be able
+to replicate our experiments, so it's no hassle.
+
+This README file contains a small description of the experimental
+package used in the initial HOGWILD! experiments. The intent is that
+the HOGWILD! code will be superseded by a packaged called
+"VICTOR_SCANNER" in the near future. Hopefully, you just type "make"
+and it builds some executables. Still, this package is not easy to use
+unless you are a CS nerd, apologies for that. If you are company who
+would like to pay money to improve that, please email
+chrisre@cs.wisc.edu. We love checks.
+
+We do not include the data files, but
+they are (mostly) publicly available. Please contact us
+(chrisre@cs.wisc.edu) if you cannot find them on the Web. This is
+intended to be a living document, so I'm also happy to include more
+scripts for data processing if those are useful.
+
+
+
+****************************** WARNING ****************************** 
+** The MAC version of the code cannot be used for detailed timing  **
+** experiments, because it lacks the CLOCK_REALTIME system timer   **
+** (although this function is POSIX and so is mac OS X...)         **
+****************************** WARNING ******************************
+
+Quick Usage Guide
+
+Follow the following steps to run the experiments and generate graphs:
+
+1. Run "make", which will build binaries in the directory "bin"
+2. If you don't have a "data" directory, you probably want to
+   download the data-ready package of HOGWILD!
+3. Open "experiments/experiments_settings.py" to change data paths
+   and other parameters as necessary.
+4. Run "python experiments/build_experiments.py" to generate command
+   lines based on your settings in "experiments/experiments_settings.py".
+5. Run these command lines, which log to the directory "output".
+6. Run "python experiments/produce_graphs.py" to generate experiment
+   graphs based on the logs in "output". The graphs are stored as PDF
+   files in the directory "graphs".
+
+
+I. Executables Built
+
+All executables are placed in the bin/ directory.
+
+We build code for the following tasks: cut, multicut, tracenorm,
+sparse svm. We use each of the following approaches: Roundrobin
+scheduling, global locking, atomic (latching), and HOGWILD!. To keep
+the comparison as fair as possible, we implement each function using
+compile time definitions off of the same master file. Thus, there is
+an executable for each (task,approach) pair. For example,
+cut_roundrobin is the code for the cut task using roundrobin
+scheduling.
+
+Additionally, we implement each approach for roundrobin with
+hand-coded busy waiting (suffix _busy) or with pthreads locking as
+described in the paper. We also implement debugging versions of the
+approaches (_debug). For the SVM, there are _delay versions that
+introduce nanosecond delays (due to OSX library issues, the SVM is not
+included in the MAC build).
+
+Finally, there is an executable "translate" that translates our sparse
+matrix format (row, col, value) into a simple binary format. We do not
+measure loading time in the paper, but on a 7 disk RAID0 this format
+allows us to read close to hardware speed (~1GB/s).
+
+The code also uses templates to remove runtime penalties for writing
+the code generically (it may take a while to build however).
+
+Each executable has command line help, so typing the exec name will
+give you its parameters.
+
+II. SCRIPTS
+
+These scripts are for the truly brave. They are the way we generate
+the experimental pipeline for the HOGWILD! tests. They were often
+hacked and run from the top level, but should provide anyone familiar
+with Python the ability to replicate the experiments. If you have
+problems here, please email me.
+
+III. Logs
+
+We include the experiment logs from which the graphs were derived.
+
+IV. Data
+
+Some of the data has murky copywrites attached to it (in spite of
+being on the Web). Rather than hassle with it, we just give pointers
+to where it can be downloaded. We will maintain the original data
+(please contact us if you need it to crush our perf numbers).
+
+III. MISC
+
+This code has been tested on mac OS X and scientific linux.
+
+A more easy to use version of just HOGWILD! will be available from my
+Webpage soon (read: when my students get back from internships).

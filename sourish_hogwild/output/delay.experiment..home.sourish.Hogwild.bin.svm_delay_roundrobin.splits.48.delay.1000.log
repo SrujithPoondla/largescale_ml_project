@@ -1,0 +1,11 @@
+Starting Training...47236 rows=781265 nExamples=59938577
+# [freeforall_generic]  Parameters:
+# [freeforall_generic]  nepochs=7 nSplits=48 nShufflers=1
+# [freeforall_generic]  initial_stepsize=0.1 step_diminish=0.95
+[Epoch Stats] epoch: 1 epoch_time: 174.522 total_time: 174.594s perm_time 1.0193e-05 train_rmse: 0.335992 test_rmse: 0.334137
+[Epoch Stats] epoch: 2 epoch_time: 169.796 total_time: 344.447s perm_time 1.0367e-05 train_rmse: 0.326696 test_rmse: 0.32852
+[Epoch Stats] epoch: 3 epoch_time: 169.791 total_time: 514.289s perm_time 1.0688e-05 train_rmse: 0.322304 test_rmse: 0.328842
+[Epoch Stats] epoch: 4 epoch_time: 167.683 total_time: 682.011s perm_time 9.879e-06 train_rmse: 0.319108 test_rmse: 0.326413
+[Epoch Stats] epoch: 5 epoch_time: 166.069 total_time: 848.138s perm_time 1.0358e-05 train_rmse: 0.317226 test_rmse: 0.326706
+[Epoch Stats] epoch: 6 epoch_time: 169.177 total_time: 1017.37s perm_time 1.0137e-05 train_rmse: 0.315505 test_rmse: 0.327009
+[Epoch Stats] epoch: 7 epoch_time: 168.744 total_time: 1186.18s perm_time 1.0782e-05 train_rmse: 0.314198 test_rmse: 0.326743
