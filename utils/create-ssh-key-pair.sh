@@ -5,8 +5,8 @@ then
   mkdir ~/.ssh
 fi
 
-if [ ! -f ~/.ssh/aws-key-$name ]; then
-  ssh-keygen -t rsa -C "aws-key-$name" -f ~/.ssh/aws-key-$name -q -N ""
-  chmod 400 ~/.ssh/aws-key-$name
-  aws ec2 import-key-pair --key-name aws-key-$name --public-key-material file://$HOME/.ssh/aws-key-$name.pub
+if [ ! -f ~/.ssh/aws-key-$keyName ]; then
+  ssh-keygen -t rsa -C "aws-key-$keyName" -f ~/.ssh/aws-key-$keyName -q -N ""
+  chmod 600 ~/.ssh/aws-key-$keyName
+  aws ec2 import-key-pair --key-name aws-key-$keyName --public-key-material file://$HOME/.ssh/aws-key-$keyName.pub
 fi

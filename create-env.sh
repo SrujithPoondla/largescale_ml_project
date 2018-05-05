@@ -1,52 +1,53 @@
-export name="main-env"
+#!/bin/bash
+export vpcId="main-env"
 export availabilityZone="us-east-1a"
 
 export vpcId=`aws ec2 create-vpc --cidr-block 10.0.0.0/28 --query 'Vpc.VpcId' --output text`
-aws ec2 create-tags --resources $vpcId --tags --tags Key=Name,Value=$name
+aws ec2 create-tags --resources $vpcId --tags --tags Key=Name,Value=$vpcId
 aws ec2 modify-vpc-attribute --vpc-id $vpcId --enable-dns-support "{\"Value\":true}"
 aws ec2 modify-vpc-attribute --vpc-id $vpcId --enable-dns-hostnames "{\"Value\":true}"
 
 export internetGatewayId=`aws ec2 create-internet-gateway --query 'InternetGateway.InternetGatewayId' --output text`
-aws ec2 create-tags --resources $internetGatewayId --tags --tags Key=Name,Value=$name-gateway
+aws ec2 create-tags --resources $internetGatewayId --tags --tags Key=Name,Value=$vpcId-gateway
 aws ec2 attach-internet-gateway --internet-gateway-id $internetGatewayId --vpc-id $vpcId
 
 export subnetId=`aws ec2 create-subnet --vpc-id $vpcId --cidr-block 10.0.0.0/28  --availability-zone $availabilityZone --query 'Subnet.SubnetId' --output text`
-aws ec2 create-tags --resources $internetGatewayId --tags --tags Key=Name,Value=$name-subnet
+aws ec2 create-tags --resources $internetGatewayId --tags --tags Key=Name,Value=$vpcId-subnet
 
 export routeTableId=`aws ec2 create-route-table --vpc-id $vpcId --query 'RouteTable.RouteTableId' --output text`
-aws ec2 create-tags --resources $routeTableId --tags --tags Key=Name,Value=$name-route-table
+aws ec2 create-tags --resources $routeTableId --tags --tags Key=Name,Value=$vpcId-route-table
 export routeTableAssoc=`aws ec2 associate-route-table --route-table-id $routeTableId --subnet-id $subnetId --output text`
 aws ec2 create-route --route-table-id $routeTableId --destination-cidr-block 0.0.0.0/0 --gateway-id $internetGatewayId
 
-export securityGroupId=`aws ec2 create-security-group --group-name $name-security-group --description "SG for main-env" --vpc-id $vpcId --query 'GroupId' --output text`
+export securityGroupId=`aws ec2 create-security-group --group-name $vpcId-security-group --description "SG for main-env" --vpc-id $vpcId --query 'GroupId' --output text`
 # ssh
 
 # save delete commands for cleanup
-echo "#!/bin/bash" > $name-remove.sh # overwrite existing file
+echo "#!/bin/bash" > $vpcId-remove.sh # overwrite existing file
 
-echo aws ec2 delete-security-group --group-id $securityGroupId >> $name-remove.sh
-echo aws ec2 disassociate-route-table --association-id $routeTableAssoc >> $name-remove.sh
-echo aws ec2 delete-route-table --route-table-id $routeTableId >> $name-remove.sh
-echo aws ec2 detach-internet-gateway --internet-gateway-id $internetGatewayId --vpc-id $vpcId >> $name-remove.sh
-echo aws ec2 delete-internet-gateway --internet-gateway-id $internetGatewayId >> $name-remove.sh
-echo aws ec2 delete-subnet --subnet-id $subnetId >> $name-remove.sh
-echo aws ec2 delete-vpc --vpc-id $vpcId >> $name-remove.sh
+echo aws ec2 delete-security-group --group-id $securityGroupId >> $vpcId-remove.sh
+echo aws ec2 disassociate-route-table --association-id $routeTableAssoc >> $vpcId-remove.sh
+echo aws ec2 delete-route-table --route-table-id $routeTableId >> $vpcId-remove.sh
+echo aws ec2 detach-internet-gateway --internet-gateway-id $internetGatewayId --vpc-id $vpcId >> $vpcId-remove.sh
+echo aws ec2 delete-internet-gateway --internet-gateway-id $internetGatewayId >> $vpcId-remove.sh
+echo aws ec2 delete-subnet --subnet-id $subnetId >> $vpcId-remove.sh
+echo aws ec2 delete-vpc --vpc-id $vpcId >> $vpcId-remove.sh
 
-echo rm -f ~/aws_scripts/authorize-current-ip ~/aws_scripts/list-instances ~/aws_scripts/deauthorize-ip ~/aws_scripts/list-authorized-ips ~/aws_scripts/cancel-open-spot-instance-requests ~/aws_scripts/list-open-spot-instance-requests ~/aws_scripts/list-active-spot-instance-requests >> $name-remove.sh
-echo rm -f $name-remove.sh $name-vars.sh >> $name-remove.sh
-chmod +x $name-remove.sh
+echo rm -f ~/aws_scripts/authorize-current-ip ~/aws_scripts/list-instances ~/aws_scripts/deauthorize-ip ~/aws_scripts/list-authorized-ips ~/aws_scripts/cancel-open-spot-instance-requests ~/aws_scripts/list-open-spot-instance-requests ~/aws_scripts/list-active-spot-instance-requests >> $vpcId-remove.sh
+echo rm -f $vpcId-remove.sh $vpcId-vars.sh >> $vpcId-remove.sh
+chmod +x $vpcId-remove.sh
 
 # Save variables
-echo "#!/bin/bash" > $name-vars.sh # overwrite existing file
-echo export subnetId=$subnetId >> $name-vars.sh
-echo export securityGroupId=$securityGroupId >> $name-vars.sh
-echo export routeTableId=$routeTableId >> $name-vars.sh
-echo export envName=$name >> $name-vars.sh
-echo export vpcId=$vpcId >> $name-vars.sh
-echo export internetGatewayId=$internetGatewayId >> $name-vars.sh
-echo export subnetId=$subnetId >> $name-vars.sh
-echo export routeTableAssoc=$routeTableAssoc >> $name-vars.sh
-echo export availabilityZone=$availabilityZone >> $name-vars.sh
+echo "#!/bin/bash" > $vpcId-vars.sh # overwrite existing file
+echo export subnetId=$subnetId >> $vpcId-vars.sh
+echo export securityGroupId=$securityGroupId >> $vpcId-vars.sh
+echo export routeTableId=$routeTableId >> $vpcId-vars.sh
+echo export envName=$vpcId >> $vpcId-vars.sh
+echo export vpcId=$vpcId >> $vpcId-vars.sh
+echo export internetGatewayId=$internetGatewayId >> $vpcId-vars.sh
+echo export subnetId=$subnetId >> $vpcId-vars.sh
+echo export routeTableAssoc=$routeTableAssoc >> $vpcId-vars.sh
+echo export availabilityZone=$availabilityZone >> $vpcId-vars.sh
 
 # Create maintenance scripts
 if [ ! -d ~/aws_scripts ]

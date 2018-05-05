@@ -3,4 +3,5 @@ if [ ! -d ~/aws_scripts ]
 then
   mkdir ~/aws_scripts
 fi
-echo ssh -i ~/.ssh/aws-key-$name ubuntu@$instancePublicIp > ~/aws_scripts/$name-connect
+echo "#\!\/bin\/bash" > ~/aws_scripts/$instancePublicIp-connect.sh
+echo ssh -i ~/.ssh/aws-key-$keyName ubuntu@$instancePublicIp > ~/aws_scripts/$instancePublicIp-connect.sh
